@@ -1,0 +1,14 @@
+select
+    v:c::float as current_price,
+    v:d::float as change_amount,
+    v:dp::float as change_percent,
+    v:h::float as day_high,
+    v:l::float as day_low,
+    v:o::float as day_open,
+    v:pc::float as prev_close,
+    #v:t::timestamp as market_timestamp,
+    TO_TIMESTAMP_NTZ(v:t::int) as market_timestamp,
+    v:symbol::string as symbol,
+    #v:fetched_at::timestamp as fetched_at,
+    TO_TIMESTAMP_NTZ(v:fetched_at::int) as fetched_at
+from {{source('raw', 'bronze_stock_quotes_raw')}}
